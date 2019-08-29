@@ -1,8 +1,4 @@
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InvalidObjectException;
-import java.util.ArrayList;
+import java.io.*;
 
 class AVLTree
 {
@@ -207,41 +203,17 @@ class AVLTree
         // If current node is NULL, store marker
         if (root == null)
         {
-            fw.write(-1);
             return;
         }
 
         // Else, store current node and recur for its children
         fw.write(root.data);
-        fw.write(",");
+        fw.write("\n");
         serialize(root.left, fw);
         serialize(root.right, fw);
 
     }
-    static ArrayList retrive(FileReader fr) throws IOException
-    {
-        ArrayList a = new ArrayList();
-        if(  fr.read()!=-1  ||  (char)fr.read()!=','  )
-            a.add(fr.read());
-        fr.close();
-        return a;
-    }
-    void  deSerialize(FileReader fr) throws IOException{deSerialize(fr,root);}
-    private void  deSerialize( FileReader fr ,AVLNode root ) throws IOException
-    {
-        ArrayList a = retrive(fr);
-        // Read next item from file. If theere are no more items or next
-        // item is marker, then return
-        int val;
-        if ((val = (char)fr.read()) == -1)
-            return;
-
-        // Else create node with this item and recur for children
-        root = newNode(val);
-        deSerialize(root->left, fp);
-        deSerialize(root->right, fp);
 
 
-    }
 }
 

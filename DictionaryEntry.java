@@ -6,14 +6,14 @@ public class DictionaryEntry implements Serializable {
     DictionaryEntry left, right;
     String word;
     int height ;
-    ArrayList<String> definition ;
-    String wordType;
+    ArrayList<String> definition = new ArrayList<>();
+    ArrayList<String> wordType = new ArrayList<>();
 
     DictionaryEntry()
     {
         word = "";
        //definition ="";
-        wordType = "";
+       //wordType = "";
         left = null;
         right = null;
         height = 0;
@@ -23,18 +23,19 @@ public class DictionaryEntry implements Serializable {
     DictionaryEntry(String word, String wordType, String definition)
     {
         this.word = word;
-        this.definition.add(definition);//= definition;
-        this.wordType =wordType;
+
+        this.wordType.add(wordType);// =wordType;
         left = null;
         right = null;
         height = 0;
+        this.definition.add(definition);//= definition;
     }
 
     public String toString()
     {
-      String string = word ;
+      String string = "" ;
         for(int i = 0; i<definition.size() ;i++){
-            string += word+" : ("+wordType+") :"+" "+definition.get(i);
+            string += word+" : ("+wordType.get(i)+") :"+" "+definition.get(i)+"\n";
         }
         return string;
         //return word+" : ("+wordType+") :"+" "+definition;

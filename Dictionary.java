@@ -41,8 +41,8 @@ public class Dictionary implements Serializable {
     private DictionaryEntry insert(String word, String wordType, String definition, DictionaryEntry t)
     {
 
-        if (!wordExist(t,word))
-       {
+       // if (!wordExist(t,word))
+      // {
         if (t == null)
             t = new DictionaryEntry(word, wordType, definition );
         else if (word.compareTo( t.word) < 0)
@@ -64,18 +64,19 @@ public class Dictionary implements Serializable {
                 else
                     t = doubleWithRightChild( t );
         }
-        t.height = max( height( t.left ), height( t.right ) ) + 1;
-        // t.wordType = wordType;
-           // t.definition = definition;
-        return t;
-    }
+
+    //}
         else {
             t.definition.add(definition);//= definition;
+            t.wordType.add(wordType);
             //t.wordType[t.count] = wordType;
            // t.count++;
             return t;
         }
-
+        t.height = max( height( t.left ), height( t.right ) ) + 1;
+        // t.wordType = wordType;
+        // t.definition = definition;
+        return t;
     }
 
     private DictionaryEntry rotateWithLeftChild(DictionaryEntry k2)
@@ -169,19 +170,9 @@ public class Dictionary implements Serializable {
         return capitalizeWord.trim();
     }
 
-    public static void serialize(Dictionary avlt) throws IOException
-    {
-        FileOutputStream fos = new FileOutputStream("D:\\dictionary.txt");
 
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-    }
 
-    public static Dictionary deSerialize() throws IOException, ClassNotFoundException
-    {
-        ObjectInputStream in=new ObjectInputStream((new FileInputStream("D:\\dictionary.txt")));
-        Dictionary dictionary =(Dictionary)in.readObject();
-        return dictionary;
-    }
+
 
     public  Dictionary createDictionary()
     {
@@ -190,12 +181,13 @@ public class Dictionary implements Serializable {
             Dictionary dic = new Dictionary();
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/entries","root","nayan123");
-            String query = "select * FROM entries /*where word regexp '^Aba'*/";
+            String query = "select * FROM entries ";
             Statement stmt=con.createStatement();
             ResultSet rs=stmt.executeQuery(query);
             while(rs.next())
             {
-                //System.out.println(rs.getString(1)+" "+ rs.getString(2)+" "+ rs.getString(3));
+              // System.out.println(rs.getString(1)+" "+ rs.getString(2)+" "+ rs.getString(3));
+                //System.out.println(dic.insert(rs.getString(1),rs.getString(2),rs.getString(3)));
                 dic.insert(rs.getString(1),rs.getString(2),rs.getString(3));
             }
             con.close();
@@ -203,6 +195,7 @@ public class Dictionary implements Serializable {
         }catch(Exception e){ System.out.println(e);}
         return null;
     }
+
 
     public void inorder()
     {
@@ -216,11 +209,6 @@ public class Dictionary implements Serializable {
             System.out.print(r.word +" ");
             inorder(r.right);
         }
-    }
-    private void writeObject(ObjectOutputStream oos) throws Exception
-    {
-        // to perform default serialization of Account object.
-
     }
 
 

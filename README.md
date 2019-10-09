@@ -12,4 +12,4 @@ External Libraries used:
 CSS Files:
   1.Viper.css
   2.Amoled Dark.css
-  2.Dark
+  2.Dark.css
